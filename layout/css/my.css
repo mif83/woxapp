@@ -40,5 +40,30 @@ body {
   vertical-align: middle;
 }
 .head__menu-link:hover {
-  color: #35c1ed;
+  color: #0bb5e6;
+}
+.left {
+  width: 300px;
+  height: 100%;
+  background-color: #fff;
+  position: fixed;
+  overflow-y: auto;
+  border-right: 1px solid #000;
+}
+.left__menu-lists {
+  list-style: none;
+  margin: 0;
+  padding-left: 10px;
+}
+.left__menu-item {
+  position: relative;
+}
+.left__menu-link::before {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+}
+.icon::before {
+  background-color: #ccc;
 }

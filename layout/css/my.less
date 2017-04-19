@@ -39,8 +39,37 @@ html, body{
     }
   }
   &__menu-link:hover{
-    color: lighten(inherit, 20%);
+    color: #0bb5e6;
   }
+}
+
+.left{
+  width: 300px;
+  height: 100%;
+  background-color: #fff;
+  position: fixed;
+  overflow-y: auto;
+  border-right: 1px solid #000;
+  &__menu-lists{
+    list-style: none;
+    margin: 0;
+    padding-left: 10px;
+
+  }
+  &__menu-item{
+    position: relative;
+  }
+  &__menu-link::before{
+    content: "";
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+
+  }
+
+}
+.icon::before{
+  background-color: #ccc;
 
 
 }
