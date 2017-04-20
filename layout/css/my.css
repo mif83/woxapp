@@ -1,20 +1,5 @@
-html,
-body {
-  height: 100%;
-  width: 100%;
-  background-color: #dddddd;
-  box-sizing: border-box;
-  margin: 0px;
-  padding: 0px;
-}
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
-}
 .head {
   height: 35px;
-  background-color: #fff;
   border-bottom: 1px solid #000;
   display: flex;
 }
@@ -41,11 +26,11 @@ body {
 }
 .head__menu-link:hover {
   color: #0bb5e6;
+  transition: color 0.2s;
 }
 .left {
   width: 300px;
   height: 100%;
-  background-color: #fff;
   position: fixed;
   overflow-y: auto;
   border-right: 1px solid #000;
@@ -56,14 +41,103 @@ body {
   padding-left: 10px;
 }
 .left__menu-item {
+  margin: 10px 0;
   position: relative;
 }
 .left__menu-link::before {
   content: "";
   display: inline-block;
-  width: 10px;
-  height: 10px;
+  width: 15px;
+  height: 15px;
+  margin-right: 2px;
+  vertical-align: middle;
+}
+.left__menu-link:hover {
+  color: #0bb5e6;
+  transition: color 0.2s;
 }
 .icon::before {
   background-color: #ccc;
+}
+.icon-folder::before {
+  background: url(../img/folder.svg);
+  background-size: 15px 15px;
+}
+.icon-folder-open::before {
+  background: url(../img/folderOpen.svg);
+  background-size: 15px 15px;
+}
+.icon-exit::before {
+  background: url(../img/exit.svg);
+  background-size: 15px 15px;
+}
+.icon-home::before {
+  background: url(../img/home.svg);
+  background-size: 15px 15px;
+}
+.icon-minus::before {
+  background: url(../img/minus.svg);
+  background-size: 15px 15px;
+}
+.icon-plus::before {
+  background: url(../img/plus.svg);
+  background-size: 15px 15px;
+}
+.content {
+  margin-left: 300px;
+}
+.breadcrambs {
+  height: 35px;
+  background-color: #fff;
+  border-bottom: 1px solid #000000;
+  display: flex;
+}
+.breadcrambs__lists {
+  list-style: none;
+  margin: auto 0;
+  padding: 0;
+  display: flex;
+}
+.breadcrambs__item {
+  margin: auto 0;
+}
+.breadcrambs__item::after {
+  content: "\27A4";
+  display: inline-block;
+  margin: 0 5px;
+  vertical-align: middle;
+  font-size: 10px;
+}
+.breadcrambs__item:first-child {
+  margin-left: 10px;
+}
+.breadcrambs__item:last-child::after {
+  content: "";
+}
+.breadcrambs__link:hover {
+  color: #0bb5e6;
+  transition: color 0.2s;
+}
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  overflow-y: auto;
+  position: fixed;
+  height: 100%;
+}
+.gallery__item {
+  margin: 20px;
+}
+html,
+body {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
 }

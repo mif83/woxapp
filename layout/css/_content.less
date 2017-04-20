@@ -1,0 +1,45 @@
+.content{
+  margin-left: 300px;
+
+}
+.breadcrambs{
+  height: 35px;
+  background-color: #fff;
+  border-bottom: 1px solid #000000;
+  display: flex;
+  &__lists{
+	list-style: none;
+	margin: auto 0;
+	padding: 0;
+	display: flex;
+  }
+  &__item{
+	margin: auto 0;
+	&::after{
+	  content:"\27A4";
+	  display: inline-block;
+	  margin:0 5px;
+	  vertical-align: middle;
+	  font-size:10px;
+	}
+	&:first-child{
+	  margin-left:10px;
+	}
+	&:last-child::after{
+	  content:"";
+	}
+  }
+  &__link:hover{
+	.link-hover();
+  }
+}
+.gallery{
+  display: flex;
+  flex-wrap: wrap;
+  overflow-y:auto;
+  position: fixed;
+  height: 100%;
+  &__item{
+	margin:20px;
+  }
+}

@@ -1,75 +1,22 @@
+@bgsize:15px 15px;
+@hoverColor: #0bb5e6;
+
+@import "_head";
+@import "_left-sidebar";
+@import "_content";
+
+.link-hover(){
+  color: @hoverColor;
+  transition: color 0.2s;
+}
 html, body{
   height: 100%;
   width: 100%;
-  background-color: #dddddd;
   box-sizing: border-box;
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
 }
+
 *, *:before, *:after {
   box-sizing: inherit;
-}
-
-.head{
-  height: 35px;
-  background-color: #fff;
-  border-bottom: 1px solid #000;
-  display: flex;
-  &__menu-lists{
-    padding: 0;
-    margin: auto 0;
-    list-style: none;
-    display: flex;
-  }
-  &__menu-item{
-    &:first-child{
-      margin-left: 10px;
-    }
-    &:last-child::after{
-      display: none;
-    }
-    &::after{
-      content: "";
-      height: 80%;
-      width: 2px;
-      display: inline-block;
-      background-color: #000;
-      margin: 0 4px;
-      vertical-align: middle;
-    }
-  }
-  &__menu-link:hover{
-    color: #0bb5e6;
-  }
-}
-
-.left{
-  width: 300px;
-  height: 100%;
-  background-color: #fff;
-  position: fixed;
-  overflow-y: auto;
-  border-right: 1px solid #000;
-  &__menu-lists{
-    list-style: none;
-    margin: 0;
-    padding-left: 10px;
-
-  }
-  &__menu-item{
-    position: relative;
-  }
-  &__menu-link::before{
-    content: "";
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-
-  }
-
-}
-.icon::before{
-  background-color: #ccc;
-
-
 }
