@@ -86,3 +86,6 @@
     background: #f7f23d;
     cursor:default;
 }
+.current-row pre{
+    background-color: #f7f23d;
+}

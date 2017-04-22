@@ -25,11 +25,12 @@ app.controller("myCtrl", function($scope, $http){
     $scope.showPage = showPage;
     $scope.getCurrentPageNum = getCurrentPageNum;
     $scope.sort = sort;
+    $scope.showRow = showRow;
 
-    $scope.sortType     = '1';
-    $scope.sortReverse  = false;
-    $scope.searchField   = '';
-
+    
+    function showRow(e) {
+        $scope.row = e.currentTarget.innerText;
+    }
     function showPage(page) {
         $scope.currentDataList = getPageLists(page);
     }

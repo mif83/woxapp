@@ -6,7 +6,7 @@
     <button class="add-tamplate" ng-click="myData('bigBd.json')">Добавить таблицу</button>
 </div>
 <div class="search" ng-if="currentDataList">
-    <input type="search" class="search__field" placeholder="Введите поисковую фразу">
+    <input type="search" class="search__field" placeholder="Введите поисковую фразу" >
     <button class="search__btn">Искать</button>
 </div>
 
@@ -14,7 +14,7 @@
     <tr class="table__head">
         <th ng-repeat="item in header" ng-click="sort($index)" ng-class="isClick ? (direction[$index] ? 'arr-up' : 'arr-down'):''">{{item}}</th>
     </tr>
-    <tr ng-repeat="row in currentDataList">
+    <tr ng-repeat="row in currentDataList" ng-click="showRow($event)">
         <td ng-repeat="cell in row">{{cell}}</td>
 
     </tr>
@@ -23,7 +23,12 @@
     <li class="pagination__item" ng-class="{'active':getCurrentPageNum() == item.pageLink}" ng-repeat="item in paginationList" ng-click="showPage(item.pageLink)">
         <a class="pagination__link" href="">{{item.pageText}}</a>
     </li>
-
 </ul>
+<div class="current-row" ng-if="row">
+<span>Содержимое строки по которой вы кликнули:</span>
+<pre>{{row}}</pre>
+</div>
+
+
 <button ng-click="createInstanse()">Render</button>
 
