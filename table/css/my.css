@@ -36,6 +36,25 @@
 .table{
     padding: 5px;
     border: 1px solid black;
+    position: relative;
+}
+.arr-up::after{
+    content: '';
+    position: absolute;
+    right:5px;
+    top:50%;
+    transform: translateY(-75%);
+    border: 7px solid transparent;
+    border-bottom: 7px solid green;
+}
+.arr-down::after{
+    content: '';
+    position: absolute;
+    right:5px;
+    top:50%;
+    transform: translateY(-25%);
+    border: 7px solid transparent;
+    border-top: 7px solid green;
 }
 .pagination{
     list-style: none;

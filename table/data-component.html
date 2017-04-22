@@ -12,16 +12,11 @@
 
 <table class="table" ng-if="currentDataList">
     <tr class="table__head">
-        <th>{{header.id}}</th>
-        <th>{{header.name}}</th>
-        <th>{{header.price}}</th>
-        <th>{{header.quantity}}</th>
+        <th ng-repeat="item in header" ng-click="sort($index)" ng-class="isClick ? (direction[$index] ? 'arr-up' : 'arr-down'):''">{{item}}</th>
     </tr>
-    <tr ng-repeat="item in currentDataList">
-        <td>{{item[0]}}</td>
-        <td>{{item[1]}}</td>
-        <td>{{item[2]}}</td>
-        <td>{{item[3]}}</td>
+    <tr ng-repeat="row in currentDataList">
+        <td ng-repeat="cell in row">{{cell}}</td>
+
     </tr>
 </table>
 <ul class="pagination" ng-if="currentDataList">
@@ -31,3 +26,4 @@
 
 </ul>
 <button ng-click="createInstanse()">Render</button>
+
