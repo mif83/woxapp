@@ -3,31 +3,31 @@
     <label >Большой<input name="data" type="radio" value="bigBd.json"></label>
     <label >Маленький<input name="data" type="radio" value="smallBd.json"></label>
     <label >Свой<input name="data" type="radio"></label>
-    <button class="add-tamplate" ng-click="myData('smallBd.json')">Добавить таблицу</button>
+    <button class="add-tamplate" ng-click="myData('bigBd.json')">Добавить таблицу</button>
 </div>
-<div class="search" ng-if="items">
+<div class="search" ng-if="currentDataList">
     <input type="search" class="search__field" placeholder="Введите поисковую фразу">
     <button class="search__btn">Искать</button>
 </div>
 
-<table class="table" ng-if="items">
+<table class="table" ng-if="currentDataList">
     <tr class="table__head">
-        <th>{{items[0].id}}</th>
-        <th>{{items[0].name}}</th>
-        <th>{{items[0].price}}</th>
-        <th>{{items[0].quantity}}</th>
+        <th>{{header.id}}</th>
+        <th>{{header.name}}</th>
+        <th>{{header.price}}</th>
+        <th>{{header.quantity}}</th>
     </tr>
-    <tr ng-repeat="item in items track by $index" ng-if="$index != 0">
+    <tr ng-repeat="item in currentDataList">
         <td>{{item[0]}}</td>
         <td>{{item[1]}}</td>
         <td>{{item[2]}}</td>
         <td>{{item[3]}}</td>
     </tr>
 </table>
-<ul class="pagination" ng-if="items">
-    <li class="pagination__item active">1</li>
-    <li class="pagination__item"><a class="pagination__link" href="#">2</a></li>
-    <li class="pagination__item"><a class="pagination__link" href="#">3</a></li>
-    <li class="pagination__item"><a class="pagination__link" href="#">4</a></li>
+<ul class="pagination" ng-if="currentDataList">
+    <li class="pagination__item" ng-class="{'active':getCurrentPageNum() == item.pageLink}" ng-repeat="item in paginationList" ng-click="showPage(item.pageLink)">
+        <a class="pagination__link" href="">{{item.pageText}}</a>
+    </li>
+
 </ul>
-<button ng-click="render()">Render</button>
+<button ng-click="createInstanse()">Render</button>

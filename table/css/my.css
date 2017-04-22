@@ -59,11 +59,11 @@
 .pagination__link:hover{
     background: #aaaaaa;
 }
-.pagination .active{
+.active .pagination__link{
     background: #f7f23d;
-    width:1em;
-    height:1em;
-    padding: 5px;
-    border-radius: 50%;
-    text-align: center;
+
+}
+.active .pagination__link:hover{
+    background: #f7f23d;
+    cursor:default;
 }
