@@ -27,17 +27,33 @@ app.controller("myCtrl", function($scope, $http){
     $scope.getCurrentPageNum = getCurrentPageNum;
     $scope.sort = sort;
     $scope.showRow = showRow;
+    $scope.getMyFile = getMyFile;
+    $scope.search = search;
+    $scope.$watch("file", watchForFile);
 
-    $scope.search = function (searchValue) {
+
+    function watchForFile() {
+        dataList = $scope.file;
+        if(dataList) {
+            $scope.header = dataList[0];
+            dataList = dataList.slice(1);
+            dataListFilter = dataList.slice();
+            $scope.currentDataList = getPageLists();
+        }
+    }
+    function getMyFile(){
+        var input = document.getElementById($scope.radioName);
+        input.click();
+       
+    }
+    function search(searchValue) {
         var reg = new RegExp(searchValue, "gim");
         dataListFilter = dataList.filter(function(item){
             return item.toString().search(reg) !== -1;
         });
         $scope.currentDataList = getPageLists();
         $scope.row = "";
-    };
-    
-
+    }
     function showRow(e) {
         $scope.row = e.currentTarget.innerText;
     }
@@ -55,15 +71,16 @@ app.controller("myCtrl", function($scope, $http){
         }).catch(function() {
             alert("Ошибка загрузки данных");
         });
-    };
+    }
     function getPageLists(num){
-        var num = num || 0,
-            first = itemsPerPage * num,
+        num = num || 0;
+        var   first = itemsPerPage * num,
             last = first + itemsPerPage;
         currentPage = num;
 
         last = last > dataListFilter.length? dataListFilter.length : last;
         $scope.paginationList = getPaginationList();
+ 
         return dataListFilter.slice(first, last);
     }
     function getPaginationList() {
@@ -85,9 +102,9 @@ app.controller("myCtrl", function($scope, $http){
     function sort(column) {
         col = column;
         if (direction[col]){
-            dataListFilter.sort(sortArrDown, col);
+            dataListFilter.sort(sortArrDown);
         } else{
-            dataListFilter.sort(sortArrUp, col);
+            dataListFilter.sort(sortArrUp);
         }
         direction[col] = !direction[col];
         direction.current = col;
@@ -139,3 +156,21 @@ app.directive('data', function () {
         }
     };
 });
+app.directive("fileread", [function () {
+    return {
+        scope: {
+            fileread: "="
+        },
+        link: function (scope, element) {
+            element.bind("change", function (changeEvent) {
+                var reader = new FileReader();
+                reader.onload = function (loadEvent) {
+                    scope.$apply(function () {
+                        scope.fileread = JSON.parse(loadEvent.target.result);
+                    });
+                };
+                reader.readAsText(changeEvent.target.files[0]);
+            });
+        }
+    }
+}]);

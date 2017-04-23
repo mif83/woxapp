@@ -2,9 +2,9 @@
     <div >Наборы данных:</div>
     <label >Большой<input name="{{radioName}}" type="radio" ng-change="myData(jsonData)" ng-model="jsonData" value="bigBd.json"></label>
     <label >Маленький<input name="{{radioName}}" type="radio" ng-change="myData(jsonData)" ng-model="jsonData" value="smallBd.json"></label>
-    <label >Свой<input name="file" type="file"></label>
+    <label >Свой<input name="{{radioName}}" type="radio" ng-click="getMyFile()"></label>
     <button class="add-tamplate" ng-click="createInstanse()">Добавить компонент</button>
-
+    <input type="file" id="{{radioName}}" hidden fileread="file" >
 </div>
 <div class="search" ng-if="currentDataList">
     <input type="search" class="search__field" placeholder="Введите поисковую фразу" ng-model="searchValue" ng-change="search(searchValue)">
