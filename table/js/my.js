@@ -13,6 +13,7 @@ app.controller("myCtrl", function($scope, $http){
         itemsPerPage = 20,
         col,
         dataList = [],
+        dataListFilter = [],
         direction = {
             0:true,
             1:false,
@@ -29,10 +30,10 @@ app.controller("myCtrl", function($scope, $http){
 
     $scope.search = function (searchValue) {
         var reg = new RegExp(searchValue, "gim");
-
-        $scope.currentDataList = getPageLists(0, dataList.filter(function(item){
+        dataListFilter = dataList.filter(function(item){
             return item.toString().search(reg) !== -1;
-        }));
+        });
+        $scope.currentDataList = getPageLists();
         $scope.row = "";
     };
     
@@ -49,25 +50,24 @@ app.controller("myCtrl", function($scope, $http){
             dataList = res.data;
             $scope.header = dataList[0];
             dataList = dataList.slice(1);
+            dataListFilter = dataList.slice();
             $scope.currentDataList = getPageLists();
         }).catch(function() {
             alert("Ошибка загрузки данных");
         });
     };
-    function getPageLists(num, filterData){
+    function getPageLists(num){
         var num = num || 0,
             first = itemsPerPage * num,
-            last = first + itemsPerPage,
-            data = filterData || dataList;
+            last = first + itemsPerPage;
         currentPage = num;
 
-        last = last > data.length? (data.length -1) : last;
-        $scope.paginationList = getPaginationList(data);
-        return data.slice(first, last);
+        last = last > dataListFilter.length? dataListFilter.length : last;
+        $scope.paginationList = getPaginationList();
+        return dataListFilter.slice(first, last);
     }
-    function getPaginationList(filterData) {
-        var data = filterData || dataList;
-            pagesNum = Math.ceil(data.length / itemsPerPage),
+    function getPaginationList() {
+        var pagesNum = Math.ceil(dataListFilter.length / itemsPerPage),
             paginationList =[];
         for(var i =0; i < pagesNum; i++){
             paginationList.push({
@@ -85,9 +85,9 @@ app.controller("myCtrl", function($scope, $http){
     function sort(column) {
         col = column;
         if (direction[col]){
-            dataList.sort(sortArrDown, col);
+            dataListFilter.sort(sortArrDown, col);
         } else{
-            dataList.sort(sortArrUp, col);
+            dataListFilter.sort(sortArrUp, col);
         }
         direction[col] = !direction[col];
         direction.current = col;
