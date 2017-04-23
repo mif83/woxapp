@@ -1,7 +1,8 @@
+<div class="wrapper__component">
 <div class="data">
     <div >Наборы данных:</div>
-    <label >Большой<input name="{{radioName}}" type="radio" ng-change="myData(jsonData)" ng-model="jsonData" value="bigBd.json"></label>
-    <label >Маленький<input name="{{radioName}}" type="radio" ng-change="myData(jsonData)" ng-model="jsonData" value="smallBd.json"></label>
+    <label >Большой<input name="{{radioName}}" type="radio" ng-change="getData(jsonData)" ng-model="jsonData" value="bigBd.json"></label>
+    <label >Маленький<input name="{{radioName}}" type="radio" ng-change="getData(jsonData)" ng-model="jsonData" value="smallBd.json"></label>
     <label >Свой<input name="{{radioName}}" type="radio" ng-click="getMyFile()"></label>
     <button class="add-tamplate" ng-click="createInstanse()">Добавить компонент</button>
     <input type="file" id="{{radioName}}" hidden  >
@@ -29,5 +30,5 @@
 <span>Содержимое строки по которой вы кликнули:</span>
 <pre>{{row}}</pre>
 </div>
-
+</div>
 

@@ -21,7 +21,7 @@ app.controller("myCtrl", function($scope, $http){
             current:0
         };
     $scope.isClick = false;
-    $scope.myData = getData;
+    $scope.getData = getData;
     $scope.showPage = showPage;
     $scope.getCurrentPageNum = getCurrentPageNum;
     $scope.sort = sort;
@@ -46,6 +46,7 @@ app.controller("myCtrl", function($scope, $http){
                 dataList = dataList.slice(1);
                 dataListFilter = dataList.slice();
                 $scope.currentDataList = getPageLists();
+                $scope.row = "";
                 $scope.$apply();
             };
             reader.readAsText(this.files[0]);
@@ -78,6 +79,7 @@ app.controller("myCtrl", function($scope, $http){
             $scope.header = dataList[0];
             dataList = dataList.slice(1);
             dataListFilter = dataList.slice();
+            $scope.row = "";
             $scope.currentDataList = getPageLists();
         }).catch(function() {
             alert("Ошибка загрузки данных");

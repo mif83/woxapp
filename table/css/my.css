@@ -2,6 +2,11 @@
     margin: 20px auto;
     width: 600px;
 }
+.wrapper__component{
+    padding:10px;
+    margin: 15px 0;
+    box-shadow: 0 0 5px #6d6d6d;
+}
 .data{
     width: 100%;
     display: flex;
