@@ -10,7 +10,7 @@ app.controller("mainCtrl", function($scope){
 
 app.controller("myCtrl", function($scope, $http){
     var currentPage = 0,
-        itemsPerPage = 20,
+        itemsPerPage = 50,
         col,
         dataList = [],
         dataListFilter = [],
