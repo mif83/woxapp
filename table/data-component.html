@@ -16,8 +16,8 @@
     <tr class="table__head">
         <th ng-repeat="item in header" ng-click="sort($index)" ng-class="isClick ? (direction[$index] ? 'arr-up' : 'arr-down'):''">{{item}}</th>
     </tr>
-    <tr ng-repeat="row in currentDataList" ng-click="showRow($event)">
-        <td ng-repeat="cell in row">{{cell}}</td>
+    <tr ng-repeat="row in currentDataList track by $index" ng-click="showRow($event)">
+        <td ng-repeat="cell in row track by $index">{{cell}}</td>
 
     </tr>
 </table>

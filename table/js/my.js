@@ -44,12 +44,18 @@ app.controller("myCtrl", function($scope, $http){
                 }
                 $scope.header = dataList[0];
                 dataList = dataList.slice(1);
+                dataList.forEach(function(item){
+                    item = mapArr(item, Object.keys($scope.header).length);
+                });
                 dataListFilter = dataList.slice();
                 $scope.currentDataList = getPageLists();
                 $scope.row = "";
                 $scope.$apply();
+                reader.onload = "";
+                input.onchange = "";
             };
             reader.readAsText(this.files[0]);
+
         };
         input.click();
        
@@ -119,9 +125,11 @@ app.controller("myCtrl", function($scope, $http){
     // сотрируем таблицу по переданному номеру столбца
     function sort(column) {
         col = column;
+
         if (direction[col]){
             dataListFilter.sort(sortArrDown);
         } else{
+            direction[col] = false;
             dataListFilter.sort(sortArrUp);
         }
         direction[col] = !direction[col];
@@ -165,6 +173,22 @@ app.controller("myCtrl", function($scope, $http){
     // проверяем число ли передано
     function isNumeric(n) {
         return !isNaN(parseFloat(n)) && isFinite(n);
+    }
+
+    function mapArr(arr, headerLength){
+
+        if (arr.length === headerLength) {
+            return arr;
+        }
+        if (arr.length < headerLength){
+            for(var i = arr.length; i < headerLength; i++){
+                arr.push("");
+            }
+            return arr;
+        }
+        if (arr.length > headerLength) {
+            return arr.slice(0, headerLength - arr.length);
+        }
     }
 });
 

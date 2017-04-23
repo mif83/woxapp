@@ -1,6 +1,7 @@
 .wrapper{
     margin: 20px auto;
-    width: 600px;
+    min-width: 600px;
+    max-width: 900px;
 }
 .wrapper__component{
     padding:10px;
@@ -42,6 +43,9 @@
     padding: 5px;
     border: 1px solid black;
     position: relative;
+}
+.table th{
+    padding-right: 20px;
 }
 .arr-up::after{
     content: '';
