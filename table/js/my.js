@@ -1,17 +1,16 @@
 var app = angular.module("tableApp", []);
-
+// обьявляем это  контроллер чтобы мы потом могли создавать дополнительные экземпляры
 app.controller("mainCtrl", function($scope){
-    $scope.instanse = [1];
+    $scope.instanse = [{}];
 
     $scope.createInstanse = function () {
-        $scope.instanse.push(Math.random());
+        $scope.instanse.push({});
     }
 });
 
 app.controller("myCtrl", function($scope, $http){
     var currentPage = 0,
         itemsPerPage = 50,
-        col,
         dataList = [],
         dataListFilter = [],
         direction = {
@@ -30,23 +29,31 @@ app.controller("myCtrl", function($scope, $http){
     $scope.getMyFile = getMyFile;
     $scope.search = search;
 
+    // через file api получаем файл и записываем в переменные, после запускаем рендер страницы
     function getMyFile(){
         var input = document.getElementById($scope.radioName);
         input.onchange = function(){
             var reader = new FileReader;
             reader.onload = function(e){
-                dataList = JSON.parse(e.target.result);
+
+                try {
+                    dataList = JSON.parse(e.target.result);
+                }
+                catch(err){
+                    alert("Произошла ошибка при обработке файла, это не json");
+                }
                 $scope.header = dataList[0];
                 dataList = dataList.slice(1);
                 dataListFilter = dataList.slice();
                 $scope.currentDataList = getPageLists();
                 $scope.$apply();
-            }
+            };
             reader.readAsText(this.files[0]);
-        }
+        };
         input.click();
        
     }
+    // получаем ключевую фразу и по ней ищем значения
     function search(searchValue) {
         var reg = new RegExp(searchValue, "gim");
         dataListFilter = dataList.filter(function(item){
@@ -55,12 +62,15 @@ app.controller("myCtrl", function($scope, $http){
         $scope.currentDataList = getPageLists();
         $scope.row = "";
     }
+    // записываем в скоуп значение строки таблицы
     function showRow(e) {
         $scope.row = e.currentTarget.innerText;
     }
+    // делаем переход в блоке пагинации получаем в аргументах номер страницы таблицы
     function showPage(page) {
         $scope.currentDataList = getPageLists(page);
     }
+    // делаем AJAX запрос на сервер для получания JSON данных
     function getData(url){
         $http.get("db/"+ url).then(function(res) {
 
@@ -73,6 +83,8 @@ app.controller("myCtrl", function($scope, $http){
             alert("Ошибка загрузки данных");
         });
     }
+    // считаем общее количесвто страниц в таблице, вызываем функцию каждый раз
+    // когда обновляем фильтрованные данные
     function getPageLists(num){
         num = num || 0;
         var   first = itemsPerPage * num,
@@ -84,6 +96,7 @@ app.controller("myCtrl", function($scope, $http){
  
         return dataListFilter.slice(first, last);
     }
+    // формируем массив с номерами страниц таблыцы для блока пагинации
     function getPaginationList() {
         var pagesNum = Math.ceil(dataListFilter.length / itemsPerPage),
             paginationList =[];
@@ -97,9 +110,11 @@ app.controller("myCtrl", function($scope, $http){
             return paginationList;
         }
     }
+    // Возвращаем текущий номер страницы для задания элементы класса .active
     function getCurrentPageNum() {
         return currentPage;
     }
+    // сотрируем таблицу по переданному номеру столбца
     function sort(column) {
         col = column;
         if (direction[col]){
@@ -113,6 +128,7 @@ app.controller("myCtrl", function($scope, $http){
         $scope.direction = direction;
         $scope.currentDataList = getPageLists();
     }
+    // сортируем по возрастанию
     function sortArrUp(a , b){
         a = a[col];
         b = b[col];
@@ -128,6 +144,7 @@ app.controller("myCtrl", function($scope, $http){
         }
         return -1;
     }
+    //сортируем по убыванию
     function sortArrDown(a ,b){
         a = a[col];
         b = b[col];
@@ -143,6 +160,7 @@ app.controller("myCtrl", function($scope, $http){
         }
         return -1;
     }
+    // проверяем число ли передано
     function isNumeric(n) {
         return !isNaN(parseFloat(n)) && isFinite(n);
     }
@@ -158,4 +176,3 @@ app.directive('data', function () {
         }
     };
 });
-
