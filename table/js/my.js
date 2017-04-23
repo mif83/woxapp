@@ -27,7 +27,16 @@ app.controller("myCtrl", function($scope, $http){
     $scope.sort = sort;
     $scope.showRow = showRow;
 
+    $scope.search = function (searchValue) {
+        var reg = new RegExp(searchValue, "gim");
+
+        $scope.currentDataList = getPageLists(0, dataList.filter(function(item){
+            return item.toString().search(reg) !== -1;
+        }));
+        $scope.row = "";
+    };
     
+
     function showRow(e) {
         $scope.row = e.currentTarget.innerText;
     }
@@ -45,21 +54,20 @@ app.controller("myCtrl", function($scope, $http){
             alert("Ошибка загрузки данных");
         });
     };
-    function getPageLists(num){
+    function getPageLists(num, filterData){
         var num = num || 0,
             first = itemsPerPage * num,
-            last = first + itemsPerPage;
+            last = first + itemsPerPage,
+            data = filterData || dataList;
         currentPage = num;
 
-        last = last > dataList.length? (dataList.length -1) : last;
-        $scope.paginationList = getPaginationList();
-        return dataList.slice(first, last);
+        last = last > data.length? (data.length -1) : last;
+        $scope.paginationList = getPaginationList(data);
+        return data.slice(first, last);
     }
-    function getTotalPageNum() {
-        return Math.ceil(dataList.length / itemsPerPage);
-    }
-    function getPaginationList() {
-        var pagesNum = getTotalPageNum(),
+    function getPaginationList(filterData) {
+        var data = filterData || dataList;
+            pagesNum = Math.ceil(data.length / itemsPerPage),
             paginationList =[];
         for(var i =0; i < pagesNum; i++){
             paginationList.push({
@@ -127,7 +135,7 @@ app.directive('data', function () {
         restrict: 'EA',
         templateUrl: "data-component.html",
         link: function (scope, element, attrs) {
-
+            scope.radioName = "data-" + Math.random().toString().slice(2);
         }
     };
 });

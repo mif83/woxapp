@@ -1,12 +1,13 @@
 <div class="data">
     <div >Наборы данных:</div>
-    <label >Большой<input name="data" type="radio" value="bigBd.json"></label>
-    <label >Маленький<input name="data" type="radio" value="smallBd.json"></label>
-    <label >Свой<input name="data" type="radio"></label>
-    <button class="add-tamplate" ng-click="myData('bigBd.json')">Добавить таблицу</button>
+    <label >Большой<input name="{{radioName}}" type="radio" ng-change="myData(jsonData)" ng-model="jsonData" value="bigBd.json"></label>
+    <label >Маленький<input name="{{radioName}}" type="radio" ng-change="myData(jsonData)" ng-model="jsonData" value="smallBd.json"></label>
+    <label >Свой<input name="file" type="file"></label>
+    <button class="add-tamplate" ng-click="createInstanse()">Добавить компонент</button>
+
 </div>
 <div class="search" ng-if="currentDataList">
-    <input type="search" class="search__field" placeholder="Введите поисковую фразу" >
+    <input type="search" class="search__field" placeholder="Введите поисковую фразу" ng-model="searchValue" ng-change="search(searchValue)">
     <button class="search__btn">Искать</button>
 </div>
 
@@ -29,6 +30,4 @@
 <pre>{{row}}</pre>
 </div>
 
-
-<button ng-click="createInstanse()">Render</button>
 
