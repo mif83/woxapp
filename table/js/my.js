@@ -29,20 +29,21 @@ app.controller("myCtrl", function($scope, $http){
     $scope.showRow = showRow;
     $scope.getMyFile = getMyFile;
     $scope.search = search;
-    $scope.$watch("file", watchForFile);
 
-
-    function watchForFile() {
-        dataList = $scope.file;
-        if(dataList) {
-            $scope.header = dataList[0];
-            dataList = dataList.slice(1);
-            dataListFilter = dataList.slice();
-            $scope.currentDataList = getPageLists();
-        }
-    }
     function getMyFile(){
         var input = document.getElementById($scope.radioName);
+        input.onchange = function(){
+            var reader = new FileReader;
+            reader.onload = function(e){
+                dataList = JSON.parse(e.target.result);
+                $scope.header = dataList[0];
+                dataList = dataList.slice(1);
+                dataListFilter = dataList.slice();
+                $scope.currentDataList = getPageLists();
+                $scope.$apply();
+            }
+            reader.readAsText(this.files[0]);
+        }
         input.click();
        
     }
@@ -150,27 +151,11 @@ app.controller("myCtrl", function($scope, $http){
 app.directive('data', function () {
     return {
         restrict: 'EA',
+        controller:'myCtrl',
         templateUrl: "data-component.html",
         link: function (scope, element, attrs) {
             scope.radioName = "data-" + Math.random().toString().slice(2);
         }
     };
 });
-app.directive("fileread", [function () {
-    return {
-        scope: {
-            fileread: "="
-        },
-        link: function (scope, element) {
-            element.bind("change", function (changeEvent) {
-                var reader = new FileReader();
-                reader.onload = function (loadEvent) {
-                    scope.$apply(function () {
-                        scope.fileread = JSON.parse(loadEvent.target.result);
-                    });
-                };
-                reader.readAsText(changeEvent.target.files[0]);
-            });
-        }
-    }
-}]);
+
