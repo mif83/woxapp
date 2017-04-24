@@ -174,7 +174,8 @@ app.controller("myCtrl", function($scope, $http){
     function isNumeric(n) {
         return !isNaN(parseFloat(n)) && isFinite(n);
     }
-
+    // если нам передали JSON с некорректными данными удаляем лишние или наоборот добавляем нужные
+    // элементы в строку таблицы по числу заголовков
     function mapArr(arr, headerLength){
 
         if (arr.length === headerLength) {
@@ -192,7 +193,7 @@ app.controller("myCtrl", function($scope, $http){
     }
 });
 
-app.directive('data', function () {
+app.directive('tableApp', function () {
     return {
         restrict: 'EA',
         controller:'myCtrl',
